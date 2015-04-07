@@ -1,0 +1,31 @@
+<h4>Notes Index</h4>
+
+<div class="row">
+  <p>{{ctrl.notes.birthPlace}}</p>
+  <div class="col-sm-6" ng-repeat="note in ctrl.notes">
+
+    <a ui-sref="note({noteId:note.id})"><img src="{{note.preferredImage.uri}}" alt=""/></a>
+    <p>{{note.title}}</p>
+
+    <p ng-repeat="time in note.showtimes">{{time.dateTime |
+      date:'h:mm a'}}</p>
+
+    <p ng-repeat="rating in note.ratings">rated: {{rating.code}}</p>
+
+    <p ng-repeat="genre in note.genres">{{genre}}</p>
+
+    <p>{{ctrl.time(note.runTime)}}</p>
+
+  </div>
+
+
+</div>
+<hr/>
+<br/>
+<a class="btn btn-default" ui-sref="create">Create Note</a>
+
+<a class="btn btn-default" ui-sref="users">Users</a>
+
+
+<!--<a ui-sref="notewrangler.notes.note">notes 1</a>-->
+
