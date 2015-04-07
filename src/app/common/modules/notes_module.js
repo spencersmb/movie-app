@@ -2,22 +2,65 @@ angular.module('MovieApp.models.notes', [
 
 ])
   .service('NotesModel', function ($http, $q) {
+
+    var currentDate = new Date();
+    var day = currentDate.getDate();
+    var month = currentDate.getMonth() + 1;
+    var year = currentDate.getFullYear();
+
+    if( day < 10 ){
+      day = '0'+day;
+    }
+
+    if( month < 10 ){
+      month = '0'+ month;
+    }
+
+    var fullDate = year + '-' + month + '-' + day;
+
+    var theaterAvalon = 10991;
+    var urlFront = 'http://data.tmsapi.com/v1.1/theatres/';
+    var showingsDate = '/showings?startDate='+fullDate;
+    var urlEnd = '&imageSize=Lg&imageText=true&api_key=ew825g4medr9bpfy7reqzd5t';
     var model = this,
       URL_Notes = {
-        FETCH: 'http://data.tmsapi.com/v1.1/theatres/10991/showings?startDate=2015-04-06&imageSize=Lg&imageText=true&api_key=ew825g4medr9bpfy7reqzd5t'
+        //FETCH: 'http://data.tmsapi.com/v1.1/theatres/10991/showings?startDate=2015-04-07&imageSize=Lg&imageText=true&api_key=ew825g4medr9bpfy7reqzd5t'
+        FETCH: urlFront + theaterAvalon + showingsDate + urlEnd
       },
       notes,
       currentNote;
-
 
     //before we send data to ctrl - we extract it here
     function extract(result) {
       return result.data
     }
 
+    //function newDates(object){
+    //  //release dates orderby
+    //  //model.releaseDates = function(object){
+    //  //    var date = object.releaseDate;
+    //  //    object.releaseDate =_.without(object.releaseDate, '2015');
+    //  //    var newDate = object.releaseDate.slice(5);
+    //  //    var join = newDate.join("");
+    //  //    console.log(join);
+    //  //    return join;
+    //    }
+    //}
+
+
     function cacheNotes(result) {
-      //console.log(result);
+
       notes = extract(result);
+      angular.forEach(notes, function(note){
+        var date = note.releaseDate;
+        date =_.without(date, '2015');
+        //console.log(date);
+        var newDate = date.slice(5);
+        var join = newDate.join("");
+        console.log(join);
+        note.releaseDate = join;
+        return note;
+      });
       return notes;
     }
 
@@ -113,5 +156,30 @@ angular.module('MovieApp.models.notes', [
       //console.log('notes '+notes.length);
       //console.log(notes);
     };
+
+    //release dates orderby
+    //model.releaseDates = function(object){
+    //  if(object.releaseDate == null){
+    //    console.log('nothing')
+    //  }else{
+    //    var date = object.releaseDate;
+    //    object.releaseDate =_.without(object.releaseDate, '2015');
+    //    var newDate = object.releaseDate.slice(5);
+    //    var join = newDate.join("");
+    //    console.log(join);
+    //    return join;
+    //  }
+    //}
+
+    model.releaseDates = function(object){
+        var date = object;
+        date =_.without(object, '2015');
+        //console.log(date);
+        var newDate = object.slice(5);
+        //var join = newDate.join("");
+        console.log(newDate);
+        return newDate;
+    }
+
 
 });

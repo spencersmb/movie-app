@@ -1,14 +1,20 @@
 <h4>Notes Index</h4>
 
 <div class="row">
-  <p>{{ctrl.notes.birthPlace}}</p>
-  <div class="col-sm-6" ng-repeat="note in ctrl.notes">
+  <!--<p>{{ctrl.notes.birthPlace}}</p>-->
+  <div class="controls">
+    <label for="releaseDate">Sort By</label>
+    <select name="releaseDate" id="releaseDate" ng-init="ctrl.options[0].value" ng-model="descending" ng-options="opt as opt.label for opt in ctrl.options"></select>
+  </div>
+  <!--<div class="col-sm-2" ng-repeat="note in ctrl.notes | orderBy: '-releaseDate': descending.value ">-->
+  <div class="col-sm-2" ng-repeat="note in ctrl.notes | orderBy: descending.value ">
 
     <a ui-sref="note({noteId:note.id})"><img src="{{note.preferredImage.uri}}" alt=""/></a>
     <p>{{note.title}}</p>
+    <p ">{{note.qualityRating.value}}</p>
+    <p>{{note.releaseDate}}</p>
 
-    <p ng-repeat="time in note.showtimes">{{time.dateTime |
-      date:'h:mm a'}}</p>
+    <p ng-repeat="time in note.showtimes">{{time.dateTime | date:'h:mm a'}}</p>
 
     <p ng-repeat="rating in note.ratings">rated: {{rating.code}}</p>
 

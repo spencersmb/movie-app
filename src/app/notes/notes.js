@@ -19,7 +19,7 @@ angular.module('MovieApp')
 
     NotesModel.getNotes().then(function (result) {
     ctrl.notes = result;
-      console.log(result)
+      console.log(result);
     });
 
     ctrl.time = function(dateTime){
@@ -35,6 +35,16 @@ angular.module('MovieApp')
       //comma.replace('H', 'Hours');
       return comma;
     };
+
+    ctrl.options = [
+      //{label: 'Alphabetical', value: 'title'},
+      {label: 'Newest', value: 'title', selected:true},
+      {label: 'Oldest', value: '-releaseDate'}
+    ];
+
+    //ctrl.selectedOptions = ctrl.options[0].value;
+
+    ctrl.releaseDates =  NotesModel.releaseDates;
 
   });
 
