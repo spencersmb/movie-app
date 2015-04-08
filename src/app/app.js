@@ -29,22 +29,22 @@ angular.module('MovieApp', [
         templateUrl:'app/notes/notes.tmpl.html',
         controller: 'NotesListCtrl',
         controllerAs:'ctrl'
+      })
+      .state('movieDetails',{
+        url:'/movies/:movieTitle',
+        templateUrl:'app/notes/movieDetails/movieDetails.tmpl.html',
+        controller:'MovieDetailsCtrl',
+        controllerAs: 'ctrl'
       });
-      //.state('note',{
-      //  url:'/movies/:noteId',
-      //  templateUrl:'app/notes/note/note.tmpl.html',
-      //  controller:'NotesCtrl',
-      //  controllerAs: 'ctrl'
-      //})
       //.state('edit',{
       //  url:'/notes/:noteId/edit',
-      //  templateUrl:'app/notes/note/edit/edit.tmpl.html',
+      //  templateUrl:'app/notes/movieDetails/edit/edit.tmpl.html',
       //  controller:'NotesEditCtrl',
       //  controllerAs: 'ctrl'
       //})
       //.state('create',{
       //  url:'/notes/create',
-      //  templateUrl:'app/notes/note/create/create.tmpl.html',
+      //  templateUrl:'app/notes/movieDetails/create/create.tmpl.html',
       //  controller:'NotesCreateCtrl',
       //  controllerAs: 'ctrl'
       //})
@@ -64,7 +64,7 @@ angular.module('MovieApp', [
       //  url:'/notes/:noteId/edit',
       //  views:{
       //    'editView@': {
-      //      templateUrl:'app/notes/note/edit/edit.tmpl.html',
+      //      templateUrl:'app/notes/movieDetails/edit/edit.tmpl.html',
       //      controller:'NotesEditCtrl',
       //      controllerAs: 'ctrl'
       //    }

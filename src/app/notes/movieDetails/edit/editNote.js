@@ -16,14 +16,14 @@ angular.module('NoteWrangler')
       returnToNote();
     }
 
-    //pass in note id from URL first
+    //pass in movieDetails id from URL first
     NotesModel.setCurrentNote(noteId);
 
-    //get note by ID and set the obj available to the scope using stateParams
+    //get movieDetails by ID and set the obj available to the scope using stateParams
     //NotesModel.getNoteById(noteId).then(function (result) {
-    //  ctrl.note = result;
-    //  //Set current Category based on the note categoryID
-    //  NotesModel.setCurrentCategory(ctrl.note.categoryId);
+    //  ctrl.movieDetails = result;
+    //  //Set current Category based on the movieDetails categoryID
+    //  NotesModel.setCurrentCategory(ctrl.movieDetails.categoryId);
     //});
 
 

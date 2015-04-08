@@ -23,12 +23,12 @@ angular.module('MovieApp.models.users', [
       return (users) ? $q.when(users) : $http.get(URLS.FETCH).then(cacheUsers);
     };
 
-    //2nd function that takes in the current ID from URL and runs the fetch to get the note from the json file that matches the ID in the url
+    //2nd function that takes in the current ID from URL and runs the fetch to get the movieDetails from the json file that matches the ID in the url
     model.setCurrentUser = function(noteId){
       //console.log(noteId);
       //passing noteID success
       return model.getUserByNoteId(noteId).then(function (user) {
-        //console.log(note);
+        //console.log(movieDetails);
         currentUser = user;
         //model.getNote = currentNote;
       })

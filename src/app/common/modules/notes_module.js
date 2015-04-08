@@ -3,6 +3,7 @@ angular.module('MovieApp.models.notes', [
 ])
   .service('NotesModel', function ($http, $q) {
 
+    //Set date
     var currentDate = new Date();
     var day = currentDate.getDate();
     var month = currentDate.getMonth() + 1;
@@ -18,6 +19,7 @@ angular.module('MovieApp.models.notes', [
 
     var fullDate = year + '-' + month + '-' + day;
 
+    //theater options
     var theaterAvalon = 10991;
     var urlFront = 'http://data.tmsapi.com/v1.1/theatres/';
     var showingsDate = '/showings?startDate='+fullDate;
@@ -34,19 +36,6 @@ angular.module('MovieApp.models.notes', [
     function extract(result) {
       return result.data
     }
-
-    //function newDates(object){
-    //  //release dates orderby
-    //  //model.releaseDates = function(object){
-    //  //    var date = object.releaseDate;
-    //  //    object.releaseDate =_.without(object.releaseDate, '2015');
-    //  //    var newDate = object.releaseDate.slice(5);
-    //  //    var join = newDate.join("");
-    //  //    console.log(join);
-    //  //    return join;
-    //    }
-    //}
-
 
     function cacheNotes(result) {
 
@@ -68,12 +57,12 @@ angular.module('MovieApp.models.notes', [
       return (notes) ? $q.when(notes) : $http.get(URL_Notes.FETCH).then(cacheNotes);
     };
 
-    //2nd function that takes in the current ID from URL and runs the fetch to get the note from the json file that matches the ID in the url
+    //2nd function that takes in the current ID from URL and runs the fetch to get the movieDetails from the json file that matches the ID in the url
     model.setCurrentNote = function(noteId){
       //console.log(noteId);
       //passing noteID success
       return model.getNoteById(noteId).then(function (note) {
-        //console.log(note);
+        //console.log(movieDetails);
         currentNote = note;
       })
     };
@@ -84,15 +73,18 @@ angular.module('MovieApp.models.notes', [
 
 
     //3rd run the promise for notes
-    model.getNoteById = function (noteId) {
+    model.getMovieById = function (movieTitle) {
+      console.log(movieTitle);
+
       //create a deferred object
       var deferred = $q.defer();
 
       function findId() {
         //finds a match if one exists when we call getCategoryByName
         return _.find(notes, function (c) {
-          //console.log(c.id == noteId); - true
-          return c.id == noteId;
+
+          //console.log(c.rootId == movieTitle);
+          return c.title == movieTitle;
         })
       }
 
@@ -131,7 +123,7 @@ angular.module('MovieApp.models.notes', [
     model.deleteBookmark = function(note){
 
       //this may simulate backend api function
-      //find a match for the note and the notes array
+      //find a match for the movieDetails and the notes array
       var filterId =_.filter(notes,function (n) {
 
         return n.id === note.id;
@@ -145,31 +137,17 @@ angular.module('MovieApp.models.notes', [
       }
     };
 
-    //Create New note - step 1
+    //Create New movieDetails - step 1
     model.createNote = function (note) {
-      //console.log('note ' + note);
+      //console.log('movieDetails ' + movieDetails);
 
-      //adding plus one because the array length replaces the last note, not add to it
+      //adding plus one because the array length replaces the last movieDetails, not add to it
       note.id = notes.length + 1;
       console.log(note.id);
       notes.push(note);
       //console.log('notes '+notes.length);
       //console.log(notes);
     };
-
-    //release dates orderby
-    //model.releaseDates = function(object){
-    //  if(object.releaseDate == null){
-    //    console.log('nothing')
-    //  }else{
-    //    var date = object.releaseDate;
-    //    object.releaseDate =_.without(object.releaseDate, '2015');
-    //    var newDate = object.releaseDate.slice(5);
-    //    var join = newDate.join("");
-    //    console.log(join);
-    //    return join;
-    //  }
-    //}
 
     model.releaseDates = function(object){
         var date = object;
@@ -179,7 +157,13 @@ angular.module('MovieApp.models.notes', [
         //var join = newDate.join("");
         console.log(newDate);
         return newDate;
-    }
+    };
+
+    model.options = [
+      //{label: 'Alphabetical', value: 'title'},
+      {label: 'Alphabetical', value: 'title'},
+      {label: 'Newest Movies', value: '-releaseDate'}
+    ];
 
 
 });

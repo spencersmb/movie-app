@@ -1,14 +1,12 @@
 <div class="page-header">
     <h2>{{ctrl.note.title}}</h2>
-    <small>{{ctrl.user.username}}</small>
-</div>
-<p>{{ctrl.note.content}}</p>
-<p><span class="label label-info">{{ctrl.getcatname(ctrl.note.categoryId).name}}</span></p>
+    <!--<small>{{ctrl.user.username}}</small>-->
+<!--</div>-->
+<!--<p>{{ctrl.note.content}}</p>-->
+<!--<p><span class="label label-info">{{ctrl.getcatname(ctrl.note.categoryId).name}}</span></p>-->
 
 <a class="btn btn-default" ng-click="ctrl.goBack()">Go Back to Index</a>
 <a class="btn btn-default" ui-sref="edit({noteId:ctrl.note.id})">Edit Note</a>
 <a class="btn btn-danger" ng-click="ctrl.deleted(ctrl.note)">Delete</a>
-
-<div ui-view>
 
 </div>

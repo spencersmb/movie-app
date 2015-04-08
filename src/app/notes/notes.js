@@ -36,14 +36,13 @@ angular.module('MovieApp')
       return comma;
     };
 
-    ctrl.options = [
-      //{label: 'Alphabetical', value: 'title'},
-      {label: 'Newest', value: 'title', selected:true},
-      {label: 'Oldest', value: '-releaseDate'}
-    ];
+    //Select Drop down
+    ctrl.options = NotesModel.options;
 
-    //ctrl.selectedOptions = ctrl.options[0].value;
+    //make dropdown start with alphabetical
+    ctrl.descending = NotesModel.options[0];
 
+    //function to make release dates into sortable numbers
     ctrl.releaseDates =  NotesModel.releaseDates;
 
   });
