@@ -15,17 +15,28 @@ angular.module('MovieApp')
   //})
   .controller('MovieDetailsCtrl', function (NotesModel, $stateParams, $state) {
     var ctrl = this,
-      movieTitle = $stateParams.movieTitle;
-    //console.log($stateParams.movieId);
+      movieTitle = $stateParams.movieTitle,
+      movieId = $stateParams.movieId;
+      //console.log($stateParams.movieId);
+
+
 
     //pass in movieDetails id from URL first
-    //NotesModel.setCurrentNote(movieId);
+    ctrl.getCurrentActorsId = NotesModel.getCurrentActorsId;
 
     //get movieDetails by ID and set the obj available to the scope using stateParams
-    NotesModel.getMovieById(movieTitle).then(function (result) {
+    NotesModel.getMovieByTitle(movieTitle).then(function (result) {
       ctrl.note = result;
+      NotesModel.setCurrentMovie(movieId);
+      ctrl.getCurrentActorsId();
+
       //console.log(ctrl.note);
     });
+
+    //ctrl.currentActors = NotesModel.getCurrentActors;
+
+
+
 
     //make http request for categories
     //CategoriesModel.getCategories().then(function (result) {

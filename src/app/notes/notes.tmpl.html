@@ -9,7 +9,7 @@
   <!--<div class="col-sm-2" ng-repeat="movieDetails in ctrl.notes | orderBy: '-releaseDate': descending.value ">-->
   <div class="col-sm-2" ng-repeat="note in ctrl.notes | orderBy: ctrl.descending.value ">
 
-    <a ui-sref="movieDetails({movieTitle:note.title})"><img src="{{note.preferredImage.uri}}" alt=""/></a>
+    <a ui-sref="movieDetails({movieTitle:note.title, movieId:note.rootId})"><img src="{{note.preferredImage.uri}}" alt=""/></a>
     <p>{{note.title}}</p>
     <p ">{{note.qualityRating.value}}</p>
     <p>{{note.releaseDate}}</p>

@@ -31,7 +31,7 @@ angular.module('MovieApp', [
         controllerAs:'ctrl'
       })
       .state('movieDetails',{
-        url:'/movies/:movieTitle',
+        url:'/movies/:movieTitle/:movieId',
         templateUrl:'app/notes/movieDetails/movieDetails.tmpl.html',
         controller:'MovieDetailsCtrl',
         controllerAs: 'ctrl'
