@@ -19,7 +19,6 @@ angular.module('MovieApp')
       movieId = $stateParams.movieId;
       //console.log($stateParams.movieId);
 
-    //NotesModel.setCurrentMovie(movieId);
 
     //pass in movieDetails id from URL first
     ctrl.getCurrentActorsId = NotesModel.getCurrentActorsId;

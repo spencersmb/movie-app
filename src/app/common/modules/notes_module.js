@@ -3,6 +3,13 @@ angular.module('MovieApp.models.notes', [
 ])
   .service('NotesModel', function ($http, $q) {
 
+    //TODO make notes
+    var request = $http({
+      url : 'http://data.tmsapi.com/v1.1/celebs/154505',
+      method : 'GET',
+      params : {'imageSize' : 'md','api_key':'ew825g4medr9bpfy7reqzd5t' }
+    });
+
     //Set date
     var currentDate = new Date();
     var day = currentDate.getDate();
@@ -33,13 +40,22 @@ angular.module('MovieApp.models.notes', [
         FETCH: urlFront + theaterAvalon + showingsDate + urlEnd
       },
       URL_Actors = {
-        FETCH: 'http://data.tmsapi.com/v1.1/movies/10679969/versions?imageSize=Md&imageText=true&api_key=ew825g4medr9bpfy7reqzd5t'
-        //FETCH: movieActorApi + currentMovieId + urlEndActor
+        //FETCH: 'http://data.tmsapi.com/v1.1/movies/10679969/versions?imageSize=Md&imageText=true&api_key=ew825g4medr9bpfy7reqzd5t'
+        first: 'http://data.tmsapi.com/v1.1/movies/',
+        last:'/versions?imageSize=Md&imageText=true&api_key=ew825g4medr9bpfy7reqzd5t'
+      },
+      URL_Photos = {
+        //FETCH: 'http://data.tmsapi.com/v1.1/movies/10679969/versions?imageSize=Md&imageText=true&api_key=ew825g4medr9bpfy7reqzd5t'
+        first: 'http://data.tmsapi.com/v1.1/celebs/',
+        last:'?imageSize=Md&api_key=ew825g4medr9bpfy7reqzd5t'
       },
       notes,
+      photos = [],
+      photo = [],
       currentActors,
       currentMovie,
       actorId = [],
+      myPhoto,
       currentNote;
 
     //before we send data to ctrl - we extract it here
@@ -47,10 +63,18 @@ angular.module('MovieApp.models.notes', [
       return result.data
     }
 
+    function getnew(result){
+      //console.log(result);
+      myPhoto = extract(result);
+      //console.log('myphoto');
+      //console.log(myPhoto);
+      return myPhoto;
+    }
+
     function cacheActors(result){
       currentActors = extract(result);
       currentActors = currentActors.pop();
-      console.log(currentActors);
+      //console.log(currentActors);
       return currentActors;
     }
 
@@ -70,13 +94,75 @@ angular.module('MovieApp.models.notes', [
       return notes;
     }
 
+    function extractArray(result){
+      var newResult=[];
+      angular.forEach(result, function(obj){
+        newResult.push(obj.data);
+      });
+      return newResult;
+    }
+    function cachePhotos(result) {
+      photo = extractArray(result);
+
+      var newArr=[];
+
+      angular.forEach(photo, function(obj){
+
+        var object ={};
+        object.image = obj.preferredImage.uri;
+        object.name = obj.name.first + " " + obj.name.last;
+        _.find(obj.credits, function(c){
+          if(c.rootId === currentMovieId){
+
+            if(c.characterName){
+              //console.log(c.characterName);
+              object.characterName = c.characterName;
+            }
+          }
+        });
+        newArr.push(object);
+      });
+
+      //console.log(newArr);
+
+
+      //write new function inside here that extracts the photo+name+name of who they play in a new seperate object.
+      //console.log(photo);
+      return newArr;
+    }
+
     model.getNotes = function(){
       return (notes) ? $q.when(notes) : $http.get(URL_Notes.FETCH).then(cacheNotes);
     };
 
+    model.getMyPhotos = function(result){
+//return result;
+      var tmp = [];
+      var deferred = $q.defer();
 
-    model.getActors = function(){
-      return (currentActors) ? $q.when(currentActors) : $http.get(URL_Actors.FETCH).then(cacheActors);
+      angular.forEach(result, function(actorId){
+
+        //return tmp.push(actorId);
+        tmp.push($http.get(URL_Photos.first + actorId + URL_Photos.last).success(function(a){
+          return deferred.resolve(a);
+        }));
+
+      });
+      //console.log(tmp);
+      return $q.all(tmp).then(cachePhotos);
+
+    };
+
+    model.getActors = function(movieId){
+      //console.log('reset'+ currentActors);
+      //console.log(currentMovie);
+
+      //console.log(URL_Actors.first + currentMovieId + URL_Actors.last );
+      return  $http.get(URL_Actors.first + movieId + URL_Actors.last).then(cacheActors);
+    };
+
+    model.getNew = function(){
+      return request.then(getnew);
     };
 
     //2nd function that takes in the current ID from URL and runs the fetch to get the movieDetails from the json file that matches the ID in the url
@@ -84,9 +170,11 @@ angular.module('MovieApp.models.notes', [
       //console.log('movie Id from mod' + movieId);
       //passing noteID success
       return model.getMovieById(movieId).then(function (movie) {
-        //console.log(movieDetails);
+        //console.log(movie);
         currentMovie = movie;
-        currentMovieId = currentMovie.rootId;
+        currentMovieId = movie.rootId;
+
+        //model.getCurrentActorsId(movieId);
 
       })
     };
@@ -95,9 +183,6 @@ angular.module('MovieApp.models.notes', [
       return currentNote ? currentNote.title : ''
     };
 
-    //model.getCurrentActors = function () {
-    //  return currentMovie ? currentMovie.topCast : ''
-    //};
 
 
     //3rd run the promise for notes
@@ -120,7 +205,11 @@ angular.module('MovieApp.models.notes', [
       //if it exists just loop over it and resolve the promise with that value
       if(notes){
 
-        deferred.resolve(findId());
+        //currentMovie=[];
+
+        model.getNotes().then(function (result) {
+          deferred.resolve(findId());
+        })
       } else {
         //console.log('else');
         //if it doesnt make a call to the server then loop over it and return the promise
@@ -166,127 +255,63 @@ angular.module('MovieApp.models.notes', [
       //console.log('promise' + deferred.promise);
       return deferred.promise;
     };
+    model.reset = function(){
+      actorId=[];
+    };
 
-
-    model.getCurrentActorsId = function(rootId){
+    model.getCurrentActorsId = function(movieId){
+      //console.log(movieId);
 
       var deferred = $q.defer();
 
       function findActorId() {
-        angular.forEach(currentActors.cast, function(actor){
-          //console.log(actor);
-          _.find(currentMovie.topCast, function(currentActor){
-            if(currentActor == actor.name){
-              actorId.push(actor.nameId);
-            }
-          });
-        });
 
-       //console.log(currentMovie);
-       //angular.forEach(currentMovie.topCast, function(c){
-       //
-       //   angular.forEach(currentActors.cast, function(actor){
-       //     console.log(actor);
-       //     //_.find(actor.cast, function(a){
-       //     //  console.log(c);
-       //     //});
-       //   });
-       //})
+        //console.log(currentMovie);
+        //console.log(currentActors.cast);
+       angular.forEach(currentMovie.topCast, function(topCast){
+       console.log(topCast);
+
+           _.find(currentActors.cast, function(cast){
+             //console.log(cast);
+             //console.log(c);
+             if(topCast == cast.name){
+               actorId.push(cast.personId);
+             }
+           });
+
+       });
+      //console.log(actorId);
       return actorId;
       }
 
       //if it exists just loop over it and resolve the promise with that value
-      if(currentMovie ){
+      if(currentMovie && currentActors ){
         //console.log('exist');
-        deferred.resolve(findActorId());
+        //currentActors = [];
+        //currentMovie= [];
+        model.getActors(movieId).then(function (result) {
+          deferred.resolve(findActorId());
+        })
 
       } else {
+        //console.log(currentMovieId);
 
         //console.log('else');
         //if it doesnt make a call to the server then loop over it and return the promise
-        model.getActors().then(function (result) {
-          deferred.resolve(findActorId());
+        model.setCurrentMovie(movieId).then(function (result) {
+          model.getActors(movieId).then(function (result) {
+            deferred.resolve(findActorId());
+          })
         })
       }
 
-      //Figureout how to call get actors after current movie is set
-      
 
-
-
-      //version A
-      //model.getActors();
-      //console.log(currentMovie);
-      //if(currentMovie){
-      //
-      //
-      //  //working A
-      //  //angular.forEach(currentActors, function(actor){
-      //  //  angular.forEach(actor.cast, function(cast){
-      //  //    _.find(currentMovie.topCast, function(c){
-      //  //      //console.log(c);
-      //  //      console.log(c === cast.name);
-      //  //      if(c === cast.name){
-      //  //        actorId.push(cast.nameId);
-      //  //
-      //  //      }
-      //  //    });
-      //  //  });
-      //  //
-      //  //
-      //  //})
-      //}else{
-      //  console.log('no luck');
-      //}
-      //console.log(actorId);
-      ////remove dups
+      return deferred.promise;
     };
 
     model.getActorsPics = function(){
 
     };
-
-    //model.updateNote = function (note) {
-    //  //this simulates backend memory function
-    //  //we are editing this object in memory.
-    //
-    //  var index = _.findIndex(notes, function (n) {
-    //    //return the object index number that matches
-    //    return n.id == note.id;
-    //  });
-    //
-    //  //now get the current bookmark with index and replace with new object
-    //  notes[index] = note;
-    //};
-    //
-    //model.deleteBookmark = function(note){
-    //
-    //  //this may simulate backend api function
-    //  //find a match for the movieDetails and the notes array
-    //  var filterId =_.filter(notes,function (n) {
-    //
-    //    return n.id === note.id;
-    //  });
-    //
-    //  //if true get index, then splice the array
-    //  if(filterId){
-    //    var index = _.indexOf(notes, note);
-    //    //splice works off of the position index in-case you're working from 0 indexed array
-    //    notes.splice(index, 1);
-    //  }
-    //};
-    //
-    ////Create New movieDetails - step 1
-    //model.createNote = function (note) {
-    //  //console.log('movieDetails ' + movieDetails);
-    //
-    //  //adding plus one because the array length replaces the last movieDetails, not add to it
-    //  note.id = notes.length + 1;
-    //  console.log(note.id);
-    //  notes.push(note);
-    //  //console.log('notes '+notes.length);
-    //  //console.log(notes);
-    //};
 
     model.releaseDates = function(object){
         var date = object;

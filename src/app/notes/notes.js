@@ -16,7 +16,7 @@ angular.module('MovieApp')
   //})
   .controller('NotesListCtrl', function (NotesModel) {
     var ctrl = this;
-
+    //rename notes to movies
     NotesModel.getNotes().then(function (result) {
     ctrl.notes = result;
       console.log(result);
