@@ -19,7 +19,7 @@ angular.module('MovieApp')
       movieId = $stateParams.movieId;
       //console.log($stateParams.movieId);
 
-
+    //NotesModel.setCurrentMovie(movieId);
 
     //pass in movieDetails id from URL first
     ctrl.getCurrentActorsId = NotesModel.getCurrentActorsId;
@@ -27,11 +27,36 @@ angular.module('MovieApp')
     //get movieDetails by ID and set the obj available to the scope using stateParams
     NotesModel.getMovieByTitle(movieTitle).then(function (result) {
       ctrl.note = result;
+      //NotesModel.setCurrentMovie(movieTitle);
       NotesModel.setCurrentMovie(movieId);
-      ctrl.getCurrentActorsId();
-
       //console.log(ctrl.note);
     });
+
+    NotesModel.getCurrentActorsId(movieId).then(function (result) {
+      ctrl.actor = result;
+
+      //ctrl.photos = NotesModel.getMyPhotos(result);
+      //console.log(ctrl.photos);
+      NotesModel.getMyPhotos(result).then(function(actors){
+        ctrl.actors = actors;
+        //console.log(actors); //contains cast memeber name and role they play in movie
+
+      });
+
+    });
+
+    NotesModel.getNew().then(function(result){
+      //console.log(result);
+    });
+    //ctrl.getCurrentPhotos = NotesModel.getCurrentPhotos;
+    //console.log(ctrl.getCurrentPhotos());
+
+    //NotesModel.getMyPhoto().then(function(result){
+    //  ctrl.photo = result;
+    //  console.log(result.preferredImage.uri);
+    //});
+
+
 
     //ctrl.currentActors = NotesModel.getCurrentActors;
 
@@ -61,6 +86,7 @@ angular.module('MovieApp')
 
     function goBack(){
       returnToMovies();
+      ctrl.reset();
     }
 
     //function deleteNote(note){
@@ -70,6 +96,8 @@ angular.module('MovieApp')
     //  returnToNotes();
     //}
     ctrl.goBack = goBack;
+
+    ctrl.reset = NotesModel.reset;
 
     //ctrl.deleted = deleteNote;
 
