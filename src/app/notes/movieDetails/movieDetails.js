@@ -29,7 +29,7 @@ angular.module('MovieApp')
       ctrl.note = result;
       //NotesModel.setCurrentMovie(movieTitle);
       NotesModel.setCurrentMovie(movieId);
-      //console.log(ctrl.note);
+      console.log(ctrl.note);
     });
 
     NotesModel.getCurrentActorsId(movieId).then(function (result) {

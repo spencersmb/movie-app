@@ -64,11 +64,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="movieDetails.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="movieDetails.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/notes/movieDetails/movieDetails.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.06603774" vertical-offset="626" max-vertical-offset="2398">
-              <caret line="31" column="31" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2398">
+              <caret line="32" column="7" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -77,18 +77,18 @@
       <file leaf-file-name="notes.tmpl.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/notes/notes.tmpl.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.774194" vertical-offset="14" max-vertical-offset="946">
-              <caret line="13" column="41" selection-start-line="13" selection-start-column="41" selection-end-line="13" selection-end-column="41" />
+            <state vertical-scroll-proportion="-10.903226" vertical-offset="14" max-vertical-offset="946">
+              <caret line="16" column="73" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="73" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="movieDetails.tmpl.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="movieDetails.tmpl.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/app/notes/movieDetails/movieDetails.tmpl.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.677419" vertical-offset="0" max-vertical-offset="616">
-              <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.05385557" vertical-offset="0" max-vertical-offset="924">
+              <caret line="2" column="27" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -107,10 +107,10 @@
         <option value="$PROJECT_DIR$/src/app/common/modules/user_module.js" />
         <option value="$PROJECT_DIR$/src/app/notes/notes.js" />
         <option value="$PROJECT_DIR$/src/app/app.js" />
-        <option value="$PROJECT_DIR$/src/app/notes/notes.tmpl.html" />
-        <option value="$PROJECT_DIR$/src/app/notes/movieDetails/movieDetails.tmpl.html" />
         <option value="$PROJECT_DIR$/src/app/common/modules/notes_module.js" />
         <option value="$PROJECT_DIR$/src/app/notes/movieDetails/movieDetails.js" />
+        <option value="$PROJECT_DIR$/src/app/notes/notes.tmpl.html" />
+        <option value="$PROJECT_DIR$/src/app/notes/movieDetails/movieDetails.tmpl.html" />
       </list>
     </option>
   </component>
@@ -728,22 +728,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/notes/movieDetails/movieDetails.tmpl.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.677419" vertical-offset="0" max-vertical-offset="616">
-          <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/notes/notes.tmpl.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.774194" vertical-offset="14" max-vertical-offset="946">
-          <caret line="13" column="41" selection-start-line="13" selection-start-column="41" selection-end-line="13" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/common/modules/notes_module.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-150.07143" vertical-offset="1716" max-vertical-offset="7436">
@@ -752,10 +736,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/notes/notes.tmpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.903226" vertical-offset="14" max-vertical-offset="946">
+          <caret line="16" column="73" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/notes/movieDetails/movieDetails.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.06603774" vertical-offset="626" max-vertical-offset="2398">
-          <caret line="31" column="31" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2398">
+          <caret line="32" column="7" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/notes/movieDetails/movieDetails.tmpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.05385557" vertical-offset="0" max-vertical-offset="924">
+          <caret line="2" column="27" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
           <folding />
         </state>
       </provider>
