@@ -5,12 +5,12 @@
     <label for="releaseDate">Sort By</label>
     <select name="releaseDate" id="releaseDate" ng-model="ctrl.descending" ng-options="opt as opt.label for opt in ctrl.options"></select>
   </div>
-  <!--<div class="col-sm-2" ng-repeat="movieDetails in ctrl.notes | orderBy: '-releaseDate': descending.value ">-->
+  <!--<div class="col-sm-2" ng-repeat="movieDetails in ctrl.movies | orderBy: '-releaseDate': descending.value ">-->
   <div class="col-sm-2" ng-repeat="note in ctrl.notes | orderBy: ctrl.descending.value ">
 
     <a ui-sref="movieDetails({movieTitle:note.title, movieId:note.rootId})"><img src="{{note.preferredImage.uri}}" alt=""/></a>
     <p>{{note.title}}</p>
-    <p ">{{note.qualityRating.value}}</p>
+    <p>{{note.qualityRating.value}}</p>
     <p>{{note.releaseDate}}</p>
 
     <p ng-repeat="time in note.showtimes">{{time.dateTime | date:'h:mm a'}}</p>
@@ -19,7 +19,7 @@
 
     <p ng-repeat="genre in note.genres">{{genre}}</p>
 
-    <p>{{ctrl.time(note.runTime)}}</p>
+    <p>{{note.runTime}}</p>
 
   </div>
 
@@ -32,5 +32,5 @@
 <a class="btn btn-default" ui-sref="users">Users</a>
 
 
-<!--<a ui-sref="notewrangler.notes.movieDetails">notes 1</a>-->
+<!--<a ui-sref="notewrangler.movies.movieDetails">movies 1</a>-->
 

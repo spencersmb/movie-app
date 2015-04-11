@@ -12,7 +12,7 @@ var notes = [
 var lastId = 6;
 
 var buildNotes = function() {
-  // Make a deep copy so we don't change the main notes array
+  // Make a deep copy so we don't change the main movies array
   var rawNotes = JSON.parse(JSON.stringify(notes));
   var builtNotes = [];
   var note;

@@ -3,6 +3,7 @@
     <h3>{{ctrl.note.ratings[0].code}}</h3>
   <img src="{{ctrl.note.preferredImage.uri}}" alt=""/>
     <p>{{ctrl.note.longDescription}}</p>
+    <p>{{ctrl.note.runTime}}</p>
 
 
   <p ng-repeat="director in ctrl.note.directors">{{director}}</p>
@@ -24,8 +25,8 @@
   <br/>
 <div class="col-sm-12">
   <a class="btn btn-default" ng-click="ctrl.goBack()">Go Back to Index</a>
-  <a class="btn btn-default" ui-sref="edit({noteId:ctrl.note.id})">Edit Note</a>
-  <a class="btn btn-danger" ng-click="ctrl.deleted(ctrl.note)">Delete</a>
+  <!--<a class="btn btn-default" ui-sref="edit({noteId:ctrl.note.id})">Edit Note</a>-->
+  <!--<a class="btn btn-danger" ng-click="ctrl.deleted(ctrl.note)">Delete</a>-->
 </div>
 
   

@@ -1,7 +1,7 @@
 //MAIN APP FILE
 angular.module('MovieApp', [
   'ui.router',
-  'MovieApp.models.notes'
+  'MovieApp.models.movies'
   //'MovieApp.models.users',
   //'MovieApp.models.categories'
 ])
@@ -21,30 +21,30 @@ angular.module('MovieApp', [
     $stateProvider
       //.state('notewrangler',{
       //  url:'',
-      //  //templateUrl:'app/notes/notes.tmpl.html'
+      //  //templateUrl:'app/movies/movies.tmpl.html'
       //  abstract:true
       //});
       .state('movies',{
         url:'/movies',
-        templateUrl:'app/notes/notes.tmpl.html',
-        controller: 'NotesListCtrl',
+        templateUrl:'app/movies/movies.tmpl.html',
+        controller: 'MoviesListCtrl',
         controllerAs:'ctrl'
       })
       .state('movieDetails',{
         url:'/movies/:movieTitle/:movieId',
-        templateUrl:'app/notes/movieDetails/movieDetails.tmpl.html',
+        templateUrl:'app/movies/movieDetails/movieDetails.tmpl.html',
         controller:'MovieDetailsCtrl',
         controllerAs: 'ctrl'
       });
       //.state('edit',{
-      //  url:'/notes/:noteId/edit',
-      //  templateUrl:'app/notes/movieDetails/edit/edit.tmpl.html',
+      //  url:'/movies/:noteId/edit',
+      //  templateUrl:'app/movies/movieDetails/edit/edit.tmpl.html',
       //  controller:'NotesEditCtrl',
       //  controllerAs: 'ctrl'
       //})
       //.state('create',{
-      //  url:'/notes/create',
-      //  templateUrl:'app/notes/movieDetails/create/create.tmpl.html',
+      //  url:'/movies/create',
+      //  templateUrl:'app/movies/movieDetails/create/create.tmpl.html',
       //  controller:'NotesCreateCtrl',
       //  controllerAs: 'ctrl'
       //})
@@ -61,10 +61,10 @@ angular.module('MovieApp', [
       //  controllerAs: 'ctrl'
       //});
       //.state('edit',{
-      //  url:'/notes/:noteId/edit',
+      //  url:'/movies/:noteId/edit',
       //  views:{
       //    'editView@': {
-      //      templateUrl:'app/notes/movieDetails/edit/edit.tmpl.html',
+      //      templateUrl:'app/movies/movieDetails/edit/edit.tmpl.html',
       //      controller:'NotesEditCtrl',
       //      controllerAs: 'ctrl'
       //    }
