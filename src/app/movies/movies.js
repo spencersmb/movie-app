@@ -18,7 +18,7 @@ angular.module('MovieApp')
     var ctrl = this;
     //rename movies to movies
     MoviesModel.getMovies().then(function (result) {
-      ctrl.notes = result;
+      ctrl.movies = result;
       console.log(result);
     });
 

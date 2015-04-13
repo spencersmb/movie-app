@@ -6,20 +6,20 @@
     <select name="releaseDate" id="releaseDate" ng-model="ctrl.descending" ng-options="opt as opt.label for opt in ctrl.options"></select>
   </div>
   <!--<div class="col-sm-2" ng-repeat="movieDetails in ctrl.movies | orderBy: '-releaseDate': descending.value ">-->
-  <div class="col-sm-2" ng-repeat="note in ctrl.notes | orderBy: ctrl.descending.value ">
+  <div class="col-sm-2" ng-repeat="movie in ctrl.movies | orderBy: ctrl.descending.value ">
 
-    <a ui-sref="movieDetails({movieTitle:note.title, movieId:note.rootId})"><img src="{{note.preferredImage.uri}}" alt=""/></a>
-    <p>{{note.title}}</p>
-    <p>{{note.qualityRating.value}}</p>
-    <p>{{note.releaseDate}}</p>
+    <a ui-sref="movieDetails({movieTitle:movie.title, movieId:movie.rootId})"><img src="{{movie.preferredImage.uri}}" alt=""/></a>
+    <p>{{movie.title}}</p>
+    <p>{{movie.qualityRating.value}}</p>
+    <p>{{movie.releaseDate}}</p>
 
-    <p ng-repeat="time in note.showtimes">{{time.dateTime | date:'h:mm a'}}</p>
+    <p ng-repeat="time in movie.showtimes">{{time.dateTime | date:'h:mm a'}}</p>
 
-    <p ng-repeat="rating in note.ratings">rated: {{rating.code}}</p>
+    <p ng-repeat="rating in movie.ratings">rated: {{rating.code}}</p>
 
-    <p ng-repeat="genre in note.genres">{{genre}}</p>
+    <p ng-repeat="genre in movie.genres">{{genre}}</p>
 
-    <p>{{note.runTime}}</p>
+    <p>{{movie.runTime}}</p>
 
   </div>
 
