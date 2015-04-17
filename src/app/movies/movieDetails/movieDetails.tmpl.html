@@ -1,7 +1,12 @@
 <div class="page-header" >
     <h2>{{ctrl.note.title}}</h2>
     <h3>{{ctrl.note.ratings[0].code}}</h3>
-  <img src="{{ctrl.note.preferredImage.uri}}" alt=""/>
+  <div class="col-sm-4"><img src="{{ctrl.note.preferredImage.uri}}" alt=""/></div>
+  <div class="col-sm-8">
+    <a class="btn btn-default" ng-click="ctrl.goBack()">Go Back to Index</a>
+    <!--<a class="btn btn-default" ui-sref="edit({noteId:ctrl.note.id})">Edit Note</a>-->
+    <!--<a class="btn btn-danger" ng-click="ctrl.deleted(ctrl.note)">Delete</a>-->
+  </div>
     <p>{{ctrl.note.longDescription}}</p>
     <p>{{ctrl.note.runTime}}</p>
 
@@ -23,11 +28,7 @@
     </div>
   </div>
   <br/>
-<div class="col-sm-12">
-  <a class="btn btn-default" ng-click="ctrl.goBack()">Go Back to Index</a>
-  <!--<a class="btn btn-default" ui-sref="edit({noteId:ctrl.note.id})">Edit Note</a>-->
-  <!--<a class="btn btn-danger" ng-click="ctrl.deleted(ctrl.note)">Delete</a>-->
-</div>
+
 
   
 
