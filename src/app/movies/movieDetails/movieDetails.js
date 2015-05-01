@@ -27,6 +27,7 @@ angular.module('MovieApp')
     //get movieDetails by title and set the obj available to the scope using stateParams
     MoviesModel.getMovieByTitle(movieTitle).then(function (result) {
       ctrl.note = result;
+      ctrl.reset();
 
       //Set the current movie passing in movieId from the stateparams
       MoviesModel.setCurrentMovie(movieId);
