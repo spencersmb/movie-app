@@ -16,10 +16,20 @@ angular.module('MovieApp')
   //})
   .controller('MoviesListCtrl', function (MoviesModel) {
     var ctrl = this;
+
+    //get dynamic id for theater and pass to URL
+    ctrl.theaterID = angular.element( "body").data('theater');
+
+    ctrl.URL_DYN = MoviesModel.URL_DYN;
+
+    ctrl.URL_DYN(ctrl.theaterID);
+
     //rename movies to movies
-    MoviesModel.getMovies().then(function (result) {
+    MoviesModel.getMovies(ctrl.URL_DYN(ctrl.theaterID)).then(function (result) {
       ctrl.movies = result;
       console.log(result);
+      // var img = angular.element( "body");
+      
     });
 
     //Select Drop down

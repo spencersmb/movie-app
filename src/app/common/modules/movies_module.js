@@ -28,17 +28,18 @@ angular.module('MovieApp.models.movies', [
 
     var fullDate = year + '-' + month + '-' + day;
 
+
     //theater Variables
     var currentMovieId = '';
-    var theaterAvalon = 10991;
+    // var theaterAvalon = 10991;
     var urlFront = 'http://data.tmsapi.com/v1.1/theatres/';
     var showingsDate = '/showings?startDate='+fullDate;
     var urlEnd = '&imageSize=Lg&imageText=true&api_key=ew825g4medr9bpfy7reqzd5t';
     var model = this,
-      URL_Notes = {
-        //FETCH: 'http://data.tmsapi.com/v1.1/theatres/10991/showings?startDate=2015-04-07&imageSize=Lg&imageText=true&api_key=ew825g4medr9bpfy7reqzd5t'
-        FETCH: urlFront + theaterAvalon + showingsDate + urlEnd
-      },
+      // URL_Notes = {
+      //   //FETCH: 'http://data.tmsapi.com/v1.1/theatres/10991/showings?startDate=2015-04-07&imageSize=Lg&imageText=true&api_key=ew825g4medr9bpfy7reqzd5t'
+      //   FETCH: urlFront + theaterAvalon + showingsDate + urlEnd
+      // },
       URL_Actors = {
         //FETCH: 'http://data.tmsapi.com/v1.1/movies/10679969/versions?imageSize=Md&imageText=true&api_key=ew825g4medr9bpfy7reqzd5t'
         first: 'http://data.tmsapi.com/v1.1/movies/',
@@ -55,6 +56,15 @@ angular.module('MovieApp.models.movies', [
       currentMovie,
       actorId = [],
       myPhoto;
+
+      //added function for dynamic url
+      model.URL_DYN = function(id){
+        var newURL = {
+                FETCH: urlFront + id + showingsDate + urlEnd
+              };
+              // console.log(newURL);
+        return newURL;
+      }
 
     //before we send data to ctrl - we extract it here
     function extract(result) {
@@ -156,8 +166,14 @@ angular.module('MovieApp.models.movies', [
     }
 
     //APi call to get all the current movies
-    model.getMovies = function(){
-      return (movies) ? $q.when(movies) : $http.get(URL_Notes.FETCH).then(cacheMovies);
+    // model.getMovies = function(){
+    //   return (movies) ? $q.when(movies) : $http.get(URL_Notes.FETCH).then(cacheMovies);
+    // };
+
+
+    //new movie api call based on dynamic variable
+    model.getMovies = function(theaterID){
+      return (movies) ? $q.when(movies) : $http.get(theaterID.FETCH).then(cacheMovies);
     };
 
     //function for looping through the returned results from what actors are in the movie then make an API call to get their photos using a loop + deferred promise.
